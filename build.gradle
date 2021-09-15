@@ -1,9 +1,18 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.flywaydb.flyway" version "7.3.1"
 	id 'java'
 }
-
+task migrateJupiter(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
+	url = "jdbc:postgresql://localhost:5432/feenotifier"
+	user = "postgres"
+	password = "harjai702"
+	locations = ["filesystem:${project.projectDir}/src/main/resources/db.migration"]
+	baselineVersion = "0"
+	baselineOnMigrate = true
+	schemas = ["public"]
+}
 group = 'com.feeapp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -19,8 +28,9 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	compileOnly 'org.projectlombok:lombok:1.18.12'
-	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	compileOnly 'org.flywaydb:flyway-core:8.0.0-beta1'
 }
 
 test {
