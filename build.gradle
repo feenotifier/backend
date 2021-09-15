@@ -13,6 +13,20 @@ task migrateJupiter(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
 	baselineOnMigrate = true
 	schemas = ["public"]
 }
+flyway {
+	url = "jdbc:postgresql://localhost:5432/feenotifier"
+	user = "postgres"
+	password = "harjai702"
+	locations = ["filesystem:${project.projectDir}/src/main/resources/db.migration"]
+	baselineVersion = "0"
+	baselineOnMigrate = true
+	schemas = ["public"]
+}
+
+project.afterEvaluate {
+	flywayMigrate.dependsOn("migrateJupiter")
+}
+
 group = 'com.feeapp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
