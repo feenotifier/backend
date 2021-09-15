@@ -1,5 +1,5 @@
 CREATE TABLE CURRENCY (
-                          id INT AUTO_INCREMENT  PRIMARY KEY,
+                          user_id serial PRIMARY KEY,
                           name VARCHAR(250) NOT NULL,
                           code VARCHAR(250) NOT NULL
 );
