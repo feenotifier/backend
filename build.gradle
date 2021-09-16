@@ -1,30 +1,30 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id "org.flywaydb.flyway" version "7.3.1"
-	id 'java'
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.flywaydb.flyway" version "7.3.1"
+    id 'java'
 }
-task migrateJupiter(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
-	url = "jdbc:postgresql://localhost:5432/feenotifier"
-	user = "postgres"
-	password = "harjai702"
-	locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
-	baselineVersion = "0"
-	baselineOnMigrate = true
-	schemas = ["public"]
+task migrateTables(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
+    url = "jdbc:postgresql://localhost:5432/feenotifier"
+    user = "postgres"
+    password = "postgres"
+    locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
+    baselineVersion = "0"
+    baselineOnMigrate = true
+    schemas = ["public"]
 }
 flyway {
-	url = "jdbc:postgresql://localhost:5432/feenotifier"
-	user = "postgres"
-	password = "harjai702"
-	locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
-	baselineVersion = "0"
-	baselineOnMigrate = true
-	schemas = ["public"]
+    url = "jdbc:postgresql://localhost:5432/feenotifier"
+    user = "postgres"
+    password = "postgres"
+    locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
+    baselineVersion = "0"
+    baselineOnMigrate = true
+    schemas = ["public"]
 }
 
 project.afterEvaluate {
-	flywayMigrate.dependsOn("migrateJupiter")
+    flywayMigrate.dependsOn("migrateTables")
 }
 
 group = 'com.feeapp'
@@ -32,21 +32,22 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	compileOnly 'org.projectlombok:lombok:1.18.20'
-	annotationProcessor 'org.projectlombok:lombok:1.18.20'
-	compileOnly 'org.flywaydb:flyway-core:8.0.0-beta1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  //  implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.flywaydb:flyway-core:8.0.0-beta1'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

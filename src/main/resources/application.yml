@@ -17,7 +17,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: harjai702
+    password: postgres
     url: jdbc:postgresql://localhost:5432/feenotifier
     username: postgres
   jpa:
