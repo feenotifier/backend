@@ -1,4 +1,4 @@
-package com.feeapp.feenotifier.db.entity;
+package com.feeapp.feenotifier.spi.db.entity;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
