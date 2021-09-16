@@ -1,7 +1,7 @@
-package com.feeapp.feenotifier.db.mapper;
+package com.feeapp.feenotifier.spi.db.mapper;
 
-import com.feeapp.feenotifier.db.entity.UserEntity;
-import com.feeapp.feenotifier.models.User;
+import com.feeapp.feenotifier.domain.User.User;
+import com.feeapp.feenotifier.spi.db.entity.UserEntity;
 
 public class UserMapper {
     public static UserEntity map(User user) {

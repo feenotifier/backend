@@ -1,4 +1,4 @@
-package com.feeapp.feenotifier.models;
+package com.feeapp.feenotifier.domain.User;
 
 import lombok.Data;
 

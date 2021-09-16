@@ -1,15 +1,14 @@
-package com.feeapp.feenotifier.rest;
+package com.feeapp.feenotifier.spi.rest;
 
-import com.feeapp.feenotifier.models.User;
-import com.feeapp.feenotifier.service.UserService;
+import com.feeapp.feenotifier.domain.User.User;
+import com.feeapp.feenotifier.domain.User.UserList;
+import com.feeapp.feenotifier.domain.response.Response;
+import com.feeapp.feenotifier.spi.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
@@ -32,5 +31,15 @@ public class UserController {
         userService.addNewUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(
+            path = "/get-all-users",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<Response<UserList>> getAllUsers() {
+        UserList userList = userService.getAllUsers();
+        return new ResponseEntity<>(new Response<>(userList, null), HttpStatus.OK);
+    }
+
 
 }
