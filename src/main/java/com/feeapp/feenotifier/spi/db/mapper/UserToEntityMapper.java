@@ -3,7 +3,7 @@ package com.feeapp.feenotifier.spi.db.mapper;
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.spi.db.entity.UserEntity;
 
-public class UserMapper {
+public class UserToEntityMapper {
     public static UserEntity map(User user) {
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(user.getFirstName());

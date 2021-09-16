@@ -2,6 +2,8 @@ package com.feeapp.feenotifier.spi.service;
 
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.domain.User.UserList;
+import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
+import com.feeapp.feenotifier.domain.User.login.LoginResponse;
 import com.feeapp.feenotifier.spi.db.service.UserDBService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,11 @@ public class UserService {
 
     public UserList getAllUsers() {
         return userDBService.getUsers();
+    }
+
+    public LoginResponse userLogin(LoginCredentials loginCredentials){
+        userDBService.getUser(loginCredentials);
+                return null;
     }
 
 }

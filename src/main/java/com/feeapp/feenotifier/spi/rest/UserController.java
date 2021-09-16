@@ -2,6 +2,8 @@ package com.feeapp.feenotifier.spi.rest;
 
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.domain.User.UserList;
+import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
+import com.feeapp.feenotifier.domain.User.login.LoginResponse;
 import com.feeapp.feenotifier.domain.response.Response;
 import com.feeapp.feenotifier.spi.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping(
+            path = "/login",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<Response<LoginResponse>> login(@RequestBody LoginCredentials loginCredentials){
+        return new ResponseEntity<>(new Response<>(userService.userLogin(loginCredentials),null), HttpStatus.OK);
+
+    }
     @PostMapping(
             path = "/add-new-user",
             produces = {MediaType.APPLICATION_JSON_VALUE},
