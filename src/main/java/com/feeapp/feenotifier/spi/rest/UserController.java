@@ -27,20 +27,20 @@ public class UserController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Response<LoginResponse>> login(@RequestBody LoginCredentials loginCredentials){
-        return new ResponseEntity<>(new Response<>(userService.userLogin(loginCredentials),null), HttpStatus.OK);
+    public ResponseEntity<Response<LoginResponse>> login(@RequestBody LoginCredentials loginCredentials) {
+        return new ResponseEntity<>(new Response<>(userService.userLogin(loginCredentials), null), HttpStatus.OK);
 
     }
+
     @PostMapping(
-            path = "/add-new-user",
+            path = "/signup",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Object> addNewUser(
+    public ResponseEntity<Response<String>> addNewUser(
             @RequestBody User user
     ) {
-        userService.addNewUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(userService.addNewUser(user), null), HttpStatus.OK);
     }
 
     @GetMapping(

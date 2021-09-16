@@ -6,10 +6,10 @@ import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
 
 public interface UserDBService {
 
-    void addUser(User user);
+    String addUser(User user);
 
     UserList getUsers();
 
-    User getUser(LoginCredentials loginCredentials);
+    User findUser(LoginCredentials loginCredentials);
 
 }

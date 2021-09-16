@@ -25,10 +25,13 @@ public class UserDBServiceImpl implements UserDBService {
         this.userRepository = userRepository;
     }
 
-    public void addUser(User user) {
+    public String addUser(User user) {
         UserEntity userEntity = UserToEntityMapper.map(user);
-        userRepository.save(userEntity);
-        System.out.println(userEntity);
+        if (userRepository.save(userEntity) == null) {
+            return "FAILED";
+        }
+        return "SUCCESS";
+
     }
 
     public UserList getUsers() {
@@ -37,9 +40,10 @@ public class UserDBServiceImpl implements UserDBService {
         userList.setUsers(userEntities);
         return userList;
     }
-    public User getUser(LoginCredentials loginCredentials){
-        Optional<UserEntity> userEntityOptional=userRepository.findByEmailAndPassword(loginCredentials.getEmail(),loginCredentials.getPassword());
-        if(userEntityOptional.isEmpty()){
+
+    public User findUser(LoginCredentials loginCredentials) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByEmailAndPassword(loginCredentials.getEmail(), loginCredentials.getPassword());
+        if (userEntityOptional.isEmpty()) {
             return null;
         }
         return EntityToUserMapper.map(userEntityOptional.get());

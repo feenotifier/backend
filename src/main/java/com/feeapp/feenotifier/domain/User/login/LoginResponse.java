@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class LoginResponse {
-   private Boolean isLogin;
+    private Boolean isLogin;
     private String response;
     private String email;
 }

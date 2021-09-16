@@ -18,17 +18,27 @@ public class UserService {
     }
 
 
-    public void addNewUser(User user) {
-        userDBService.addUser(user);
+    public String addNewUser(User user) {
+        return userDBService.addUser(user);
     }
 
     public UserList getAllUsers() {
         return userDBService.getUsers();
     }
 
-    public LoginResponse userLogin(LoginCredentials loginCredentials){
-        userDBService.getUser(loginCredentials);
-                return null;
+    public LoginResponse userLogin(LoginCredentials loginCredentials) {
+        User user = userDBService.findUser(loginCredentials);
+        LoginResponse loginResponse = new LoginResponse();
+        if (user == null) {
+            loginResponse.setIsLogin(false);
+            loginResponse.setResponse("user not found");
+            loginResponse.setEmail(null);
+            return loginResponse;
+        }
+        loginResponse.setIsLogin(true);
+        loginResponse.setResponse("logged in");
+        loginResponse.setEmail(user.getEmail());
+        return loginResponse;
     }
 
 }
