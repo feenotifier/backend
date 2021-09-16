@@ -6,7 +6,7 @@ CREATE TABLE user_details
     last_name varchar (50),
     email varchar (50) not null,
     phone_number varchar(20) not null,
-    password varchar(50) not null,
+    password varchar not null,
     user_permission varchar(10) not null,
     created_at timestamp not null default NOW(),
     primary key (id)
