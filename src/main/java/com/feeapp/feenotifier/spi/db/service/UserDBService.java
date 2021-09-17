@@ -7,10 +7,12 @@ import com.feeapp.feenotifier.domain.User.signup.SignupResponse;
 
 public interface UserDBService {
 
-    SignupResponse addUser(User user);
+    User addUser(User user);
 
     UserList getUsers();
 
     User findUser(LoginCredentials loginCredentials);
+
+    User getUserByEmailId(String email);
 
 }

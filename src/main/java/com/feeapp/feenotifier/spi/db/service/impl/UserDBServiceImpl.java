@@ -27,23 +27,8 @@ public class UserDBServiceImpl implements UserDBService {
         this.userRepository = userRepository;
     }
 
-    public SignupResponse addUser(User user) {
-        UserEntity userEntity = UserToEntityMapper.map(user);
-        SignupResponse signupResponse = new SignupResponse();
-        try{
-           userEntity = userRepository.save(userEntity);
-        }
-        catch (Exception e){
-            signupResponse.setIsCreated(false);
-            signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
-            return signupResponse;
-        }
-        signupResponse.setIsCreated(true);
-        signupResponse.setUserId(userEntity.getUserId());
-        signupResponse.setEmail(userEntity.getEmail());
-        signupResponse.setResponse(UserSignUpResponse.SUCCESS);
-        return signupResponse;
-
+    public User addUser(User user) {
+        return EntityToUserMapper.map(userRepository.save(UserToEntityMapper.map(user)));
     }
 
     public UserList getUsers() {
@@ -60,5 +45,11 @@ public class UserDBServiceImpl implements UserDBService {
         }
         return EntityToUserMapper.map(userEntityOptional.get());
     }
-
+   public  User getUserByEmailId(String email){
+        Optional<UserEntity> userEntityOptional=userRepository.findByEmail(email);
+       if (userEntityOptional.isEmpty()) {
+           return null;
+       }
+       return EntityToUserMapper.map(userEntityOptional.get());
+    }
 }
