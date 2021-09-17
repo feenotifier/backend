@@ -9,6 +9,7 @@ import com.feeapp.feenotifier.spi.db.mapper.EntityToUserMapper;
 import com.feeapp.feenotifier.spi.db.mapper.UserToEntityMapper;
 import com.feeapp.feenotifier.spi.db.repository.UserRepository;
 import com.feeapp.feenotifier.spi.db.service.UserDBService;
+import com.feeapp.feenotifier.spi.enums.UserSignUpResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +35,13 @@ public class UserDBServiceImpl implements UserDBService {
         }
         catch (Exception e){
             signupResponse.setIsCreated(false);
-            signupResponse.setResponse(e.getMessage());
+            signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
             return signupResponse;
         }
         signupResponse.setIsCreated(true);
         signupResponse.setUserId(userEntity.getUserId());
         signupResponse.setEmail(userEntity.getEmail());
-        signupResponse.setResponse("User Added Successfully");
+        signupResponse.setResponse(UserSignUpResponse.SUCCESS);
         return signupResponse;
 
     }
