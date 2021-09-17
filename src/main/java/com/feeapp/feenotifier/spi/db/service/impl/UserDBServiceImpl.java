@@ -3,6 +3,7 @@ package com.feeapp.feenotifier.spi.db.service.impl;
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.domain.User.UserList;
 import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
+import com.feeapp.feenotifier.domain.User.signup.SignupResponse;
 import com.feeapp.feenotifier.spi.db.entity.UserEntity;
 import com.feeapp.feenotifier.spi.db.mapper.EntityToUserMapper;
 import com.feeapp.feenotifier.spi.db.mapper.UserToEntityMapper;
@@ -25,12 +26,22 @@ public class UserDBServiceImpl implements UserDBService {
         this.userRepository = userRepository;
     }
 
-    public String addUser(User user) {
+    public SignupResponse addUser(User user) {
         UserEntity userEntity = UserToEntityMapper.map(user);
-        if (userRepository.save(userEntity) == null) {
-            return "FAILED";
+        SignupResponse signupResponse = new SignupResponse();
+        try{
+           userEntity = userRepository.save(userEntity);
         }
-        return "SUCCESS";
+        catch (Exception e){
+            signupResponse.setIsCreated(false);
+            signupResponse.setResponse(e.getMessage());
+            return signupResponse;
+        }
+        signupResponse.setIsCreated(true);
+        signupResponse.setUserId(userEntity.getUserId());
+        signupResponse.setEmail(userEntity.getEmail());
+        signupResponse.setResponse("User Added Successfully");
+        return signupResponse;
 
     }
 

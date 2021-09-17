@@ -4,6 +4,7 @@ import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.domain.User.UserList;
 import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
 import com.feeapp.feenotifier.domain.User.login.LoginResponse;
+import com.feeapp.feenotifier.domain.User.signup.SignupResponse;
 import com.feeapp.feenotifier.spi.db.service.UserDBService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class UserService {
     }
 
 
-    public String addNewUser(User user) {
+    public SignupResponse addNewUser(User user) {
         return userDBService.addUser(user);
     }
 
