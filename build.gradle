@@ -7,7 +7,7 @@ plugins {
 task migrateTables(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
     url = "jdbc:postgresql://localhost:5432/feenotifier"
     user = "postgres"
-    password = "postgres"
+    password = "harjai702"
     locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
     baselineVersion = "0"
     baselineOnMigrate = true
@@ -16,7 +16,7 @@ task migrateTables(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
 flyway {
     url = "jdbc:postgresql://localhost:5432/feenotifier"
     user = "postgres"
-    password = "postgres"
+    password = "harjai702"
     locations = ["filesystem:${project.projectDir}/src/main/resources/db/migration"]
     baselineVersion = "0"
     baselineOnMigrate = true
