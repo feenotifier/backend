@@ -22,16 +22,16 @@ public class UserService {
 
 
     public SignupResponse addNewUser(User user) {
-        SignupResponse signupResponse=new SignupResponse();
-        if(userDBService.getUserByEmailId(user.getEmail())!=null){
-          signupResponse.setResponse(UserSignUpResponse.EMAIL_ALREADY_EXISTS);
-          signupResponse.setIsCreated(false);
-          return signupResponse;
+        user.setIsActive(true);
+        SignupResponse signupResponse = new SignupResponse();
+        if (userDBService.getUserByEmailId(user.getEmail()) != null) {
+            signupResponse.setResponse(UserSignUpResponse.EMAIL_ALREADY_EXISTS);
+            signupResponse.setIsCreated(false);
+            return signupResponse;
         }
-        try{
-            user=userDBService.addUser(user);
-        }
-        catch (Exception e){
+        try {
+            user = userDBService.addUser(user);
+        } catch (Exception e) {
             signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
             signupResponse.setIsCreated(false);
             return signupResponse;
@@ -46,6 +46,7 @@ public class UserService {
     public UserList getAllUsers() {
         return userDBService.getUsers();
     }
+
     public LoginResponse userLogin(LoginCredentials loginCredentials) {
         User user = userDBService.findUser(loginCredentials);
         LoginResponse loginResponse = new LoginResponse();
@@ -55,6 +56,7 @@ public class UserService {
             loginResponse.setEmail(null);
             return loginResponse;
         }
+
         loginResponse.setIsLogin(true);
         loginResponse.setResponse(UserLoginResponse.SUCCESS);
         loginResponse.setEmail(user.getEmail());
@@ -62,4 +64,7 @@ public class UserService {
         return loginResponse;
     }
 
+    public User getUserByUserId(String userId) {
+        return userDBService.getUserByUserId(userId);
+    }
 }

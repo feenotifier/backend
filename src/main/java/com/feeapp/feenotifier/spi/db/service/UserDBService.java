@@ -3,7 +3,6 @@ package com.feeapp.feenotifier.spi.db.service;
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.domain.User.UserList;
 import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
-import com.feeapp.feenotifier.domain.User.signup.SignupResponse;
 
 public interface UserDBService {
 
@@ -14,5 +13,7 @@ public interface UserDBService {
     User findUser(LoginCredentials loginCredentials);
 
     User getUserByEmailId(String email);
+
+    User getUserByUserId(String userId);
 
 }

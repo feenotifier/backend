@@ -10,5 +10,6 @@ CREATE TABLE user_details
     password varchar(50) not null,
     user_permission varchar(10) not null,
     created_at timestamp not null default NOW(),
+    is_active boolean,
     primary key (id)
 );
