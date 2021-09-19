@@ -15,6 +15,7 @@ public class UserToEntityMapper {
         userEntity.setPhoneNumber(user.getPhoneNumber());
         userEntity.setPassword(user.getPassword());
         userEntity.setUserPermission("BASIC");
+        userEntity.setIsActive(user.getIsActive());
         return userEntity;
     }
 }

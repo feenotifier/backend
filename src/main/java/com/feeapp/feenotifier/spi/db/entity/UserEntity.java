@@ -17,7 +17,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_id_sequence")
     Long id;
 
-    @Column(name="user_id",unique = true,updatable = false,nullable = false)
+    @Column(name = "user_id", unique = true, updatable = false, nullable = false)
     private UUID userId;
 
     @Column(name = "first_name")
@@ -26,7 +26,7 @@ public class UserEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email",unique = true,updatable = false,nullable = false)
+    @Column(name = "email", unique = true, updatable = false, nullable = false)
     private String email;
 
     @Column(name = "phone_number")
@@ -41,5 +41,8 @@ public class UserEntity {
     @Column(name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
 }

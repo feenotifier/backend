@@ -53,5 +53,12 @@ public class UserController {
         return new ResponseEntity<>(new Response<>(userList, null), HttpStatus.OK);
     }
 
+    @GetMapping(
+            path = "/get-user-userId",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<Response<User>> getuserByUserId(@RequestParam String userId) {
+        return new ResponseEntity<>(new Response<>(userService.getUserByUserId(userId), null), HttpStatus.OK);
+    }
 
 }

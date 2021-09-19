@@ -3,8 +3,6 @@ package com.feeapp.feenotifier.spi.db.mapper;
 import com.feeapp.feenotifier.domain.User.User;
 import com.feeapp.feenotifier.spi.db.entity.UserEntity;
 
-import java.util.UUID;
-
 public class EntityToUserMapper {
     public static User map(UserEntity userEntity) {
         User user = new User();
@@ -15,6 +13,7 @@ public class EntityToUserMapper {
         user.setPhoneNumber(userEntity.getPhoneNumber());
         user.setPassword(userEntity.getPassword());
         user.setUserPermission("BASIC");
+        user.setIsActive(userEntity.getIsActive());
         return user;
     }
 }
