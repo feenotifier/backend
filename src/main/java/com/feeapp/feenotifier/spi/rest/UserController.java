@@ -17,48 +17,43 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/fn/v1")
 public class UserController {
-    private final UserService userService;
+  private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping(
-            path = "/login",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<Response<LoginResponse>> login(@RequestBody LoginCredentials loginCredentials) {
-        return new ResponseEntity<>(new Response<>(userService.userLogin(loginCredentials), null), HttpStatus.OK);
+  @PostMapping(
+      path = "/login",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Response<LoginResponse>> login(
+      @RequestBody LoginCredentials loginCredentials) {
+    return new ResponseEntity<>(
+        new Response<>(userService.userLogin(loginCredentials), null), HttpStatus.OK);
+  }
 
-    }
+  @PostMapping(
+      path = "/signup",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Response<SignupResponse>> addNewUser(@RequestBody User user) {
+    return new ResponseEntity<>(new Response<>(userService.addNewUser(user), null), HttpStatus.OK);
+  }
 
-    @PostMapping(
-            path = "/signup",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<Response<SignupResponse>> addNewUser(
-            @RequestBody User user
-    ) {
-        return new ResponseEntity<>(new Response<>(userService.addNewUser(user), null), HttpStatus.OK);
-    }
+  @GetMapping(
+      path = "/get-all-users",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Response<UserList>> getAllUsers() {
+    UserList userList = userService.getAllUsers();
+    return new ResponseEntity<>(new Response<>(userList, null), HttpStatus.OK);
+  }
 
-    @GetMapping(
-            path = "/get-all-users",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<Response<UserList>> getAllUsers() {
-        UserList userList = userService.getAllUsers();
-        return new ResponseEntity<>(new Response<>(userList, null), HttpStatus.OK);
-    }
-
-    @GetMapping(
-            path = "/get-user-userId",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<Response<User>> getuserByUserId(@RequestParam String userId) {
-        return new ResponseEntity<>(new Response<>(userService.getUserByUserId(userId), null), HttpStatus.OK);
-    }
-
+  @GetMapping(
+      path = "/get-user-userId",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Response<User>> getuserByUserId(@RequestParam String userId) {
+    return new ResponseEntity<>(
+        new Response<>(userService.getUserByUserId(userId), null), HttpStatus.OK);
+  }
 }

@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Response<T> {
-    private T data;
-    private Error error;
+  private T data;
+  private Error error;
 
-    public Response(T data, Error e) {
-        this.data = data;
-        this.error = e;
-    }
+  public Response(T data, Error e) {
+    this.data = data;
+    this.error = e;
+  }
 }
