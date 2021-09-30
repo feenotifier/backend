@@ -6,14 +6,13 @@ import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
 
 public interface UserDBService {
 
-    User addUser(User user);
+  User addUser(User user);
 
-    UserList getUsers();
+  UserList getUsers();
 
-    User findUser(LoginCredentials loginCredentials);
+  User findUser(LoginCredentials loginCredentials);
 
-    User getUserByEmailId(String email);
+  User getUserByEmailId(String email);
 
-    User getUserByUserId(String userId);
-
+  User getUserByUserId(String userId);
 }

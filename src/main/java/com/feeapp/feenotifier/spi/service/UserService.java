@@ -14,57 +14,56 @@ import org.springframework.stereotype.Service;
 @Service
 @Log4j2
 public class UserService {
-    private final UserDBService userDBService;
+  private final UserDBService userDBService;
 
-    public UserService(UserDBService userDBService) {
-        this.userDBService = userDBService;
+  public UserService(UserDBService userDBService) {
+    this.userDBService = userDBService;
+  }
+
+  public SignupResponse addNewUser(User user) {
+    user.setIsActive(true);
+    SignupResponse signupResponse = new SignupResponse();
+    if (userDBService.getUserByEmailId(user.getEmail()) != null) {
+      signupResponse.setResponse(UserSignUpResponse.EMAIL_ALREADY_EXISTS);
+      signupResponse.setIsCreated(false);
+      return signupResponse;
+    }
+    try {
+      user = userDBService.addUser(user);
+    } catch (Exception e) {
+      signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
+      signupResponse.setIsCreated(false);
+      return signupResponse;
+    }
+    signupResponse.setIsCreated(true);
+    signupResponse.setUserId(user.getUserId());
+    signupResponse.setEmail(user.getEmail());
+    signupResponse.setResponse(UserSignUpResponse.SUCCESS);
+    return signupResponse;
+  }
+
+  public UserList getAllUsers() {
+    return userDBService.getUsers();
+  }
+
+  public LoginResponse userLogin(LoginCredentials loginCredentials) {
+    User user = userDBService.findUser(loginCredentials);
+    LoginResponse loginResponse = new LoginResponse();
+    if (user == null) {
+      loginResponse.setIsLogin(false);
+      loginResponse.setResponse(UserLoginResponse.INVALID_EMAIL_OR_PASSWORD);
+      loginResponse.setEmail(null);
+      return loginResponse;
     }
 
+    loginResponse.setIsLogin(true);
+    loginResponse.setResponse(UserLoginResponse.SUCCESS);
+    loginResponse.setEmail(user.getEmail());
+    loginResponse.setUserId(user.getUserId());
+    return loginResponse;
+  }
 
-    public SignupResponse addNewUser(User user) {
-        user.setIsActive(true);
-        SignupResponse signupResponse = new SignupResponse();
-        if (userDBService.getUserByEmailId(user.getEmail()) != null) {
-            signupResponse.setResponse(UserSignUpResponse.EMAIL_ALREADY_EXISTS);
-            signupResponse.setIsCreated(false);
-            return signupResponse;
-        }
-        try {
-            user = userDBService.addUser(user);
-        } catch (Exception e) {
-            signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
-            signupResponse.setIsCreated(false);
-            return signupResponse;
-        }
-        signupResponse.setIsCreated(true);
-        signupResponse.setUserId(user.getUserId());
-        signupResponse.setEmail(user.getEmail());
-        signupResponse.setResponse(UserSignUpResponse.SUCCESS);
-        return signupResponse;
-    }
-
-    public UserList getAllUsers() {
-        return userDBService.getUsers();
-    }
-
-    public LoginResponse userLogin(LoginCredentials loginCredentials) {
-        User user = userDBService.findUser(loginCredentials);
-        LoginResponse loginResponse = new LoginResponse();
-        if (user == null) {
-            loginResponse.setIsLogin(false);
-            loginResponse.setResponse(UserLoginResponse.INVALID_EMAIL_OR_PASSWORD);
-            loginResponse.setEmail(null);
-            return loginResponse;
-        }
-
-        loginResponse.setIsLogin(true);
-        loginResponse.setResponse(UserLoginResponse.SUCCESS);
-        loginResponse.setEmail(user.getEmail());
-        loginResponse.setUserId(user.getUserId());
-        return loginResponse;
-    }
-
-    public User getUserByUserId(String userId) {
-        return userDBService.getUserByUserId(userId);
-    }
+  public User getUserByUserId(String userId) {
+    return userDBService.getUserByUserId(userId);
+  }
 }
