@@ -13,6 +13,6 @@ public class User {
   private String phoneNumber;
   private String password;
   private String userPermission;
-  private String createdAt;
+     private String createdAt;
   private Boolean isActive;
 }
