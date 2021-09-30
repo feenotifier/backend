@@ -9,7 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication
 @EnableAsync
-public class FeenotifierApplication {
+public class    FeenotifierApplication {
   public static void main(String[] args) {
     SpringApplication.run(FeenotifierApplication.class, args);
   }
