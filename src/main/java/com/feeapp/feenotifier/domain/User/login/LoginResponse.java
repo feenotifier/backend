@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @Data
 public class LoginResponse {
-    private Boolean isLogin;
-    private UUID userId;
+        private Boolean isLogin;
+        private UUID userId;
     private UserLoginResponse response;
     private String email;
 }
