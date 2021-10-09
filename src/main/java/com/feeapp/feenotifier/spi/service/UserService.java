@@ -51,13 +51,31 @@ public class UserService {
   public LoginResponse userLogin(LoginCredentials loginCredentials) {
     User user = userDBService.findUser(loginCredentials);
     LoginResponse loginResponse = new LoginResponse();
+    // user not found
     if (user == null) {
       loginResponse.setIsLogin(false);
       loginResponse.setResponse(UserLoginResponse.INVALID_EMAIL_OR_PASSWORD);
       loginResponse.setEmail(null);
       return loginResponse;
     }
+    // account blocked
+    if (user.getAccountStatus().equals(AccountStatus.BLOCKED.getStatus())) {
+      loginResponse.setIsLogin(false);
+      loginResponse.setResponse(UserLoginResponse.ACCOUNT_BLOCKED);
+      loginResponse.setEmail(user.getEmail());
+      loginResponse.setUserId(user.getUserId());
+      return loginResponse;
+    }
+    // account expired
+    if (user.getAccountStatus().equals(AccountStatus.EXPIRED.getStatus())) {
+      loginResponse.setIsLogin(false);
+      loginResponse.setResponse(UserLoginResponse.ACCOUNT_EXPIRED);
+      loginResponse.setEmail(user.getEmail());
+      loginResponse.setUserId(user.getUserId());
+      return loginResponse;
+    }
 
+    // account active
     loginResponse.setIsLogin(true);
     loginResponse.setResponse(UserLoginResponse.SUCCESS);
     loginResponse.setEmail(user.getEmail());
