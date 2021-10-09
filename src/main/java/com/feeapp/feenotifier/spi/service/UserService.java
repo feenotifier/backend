@@ -31,7 +31,7 @@ public class UserService {
     try {
       user = userDBService.addUser(user);
     } catch (Exception e) {
-      signupResponse.setResponse(UserSignUpResponse.UNKOWN_ERROR);
+      signupResponse.setResponse(UserSignUpResponse.UNKNOWN_ERROR);
       signupResponse.setIsCreated(false);
       return signupResponse;
     }
