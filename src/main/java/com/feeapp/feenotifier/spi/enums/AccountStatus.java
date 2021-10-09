@@ -3,7 +3,8 @@ package com.feeapp.feenotifier.spi.enums;
 public enum AccountStatus {
   ACTIVE("ACTIVE"),
   BLOCKED("BLOCKED"),
-  PROCESSING("PROCESSING");
+  PROCESSING("PROCESSING"),
+  EXPIRED("EXPIRED");
 
   private String status;
 
