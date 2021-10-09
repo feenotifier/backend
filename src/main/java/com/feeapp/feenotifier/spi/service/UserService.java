@@ -66,4 +66,8 @@ public class UserService {
   public User getUserByUserId(String userId) {
     return userDBService.getUserByUserId(userId);
   }
+
+  public Boolean findEmail(String email) {
+    return userDBService.findEmail(email);
+  }
 }

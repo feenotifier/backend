@@ -56,4 +56,13 @@ public class UserController {
     return new ResponseEntity<>(
         new Response<>(userService.getUserByUserId(userId), null), HttpStatus.OK);
   }
+
+  // check Email is present or not in db
+  @PostMapping(
+      path = "/check-email",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Response<Boolean>> checkEmailRegistration(@RequestParam String email) {
+    return new ResponseEntity<>(
+        new Response<Boolean>(userService.findEmail(email), null), HttpStatus.OK);
+  }
 }

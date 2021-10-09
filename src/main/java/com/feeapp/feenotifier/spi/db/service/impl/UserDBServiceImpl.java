@@ -59,4 +59,12 @@ public class UserDBServiceImpl implements UserDBService {
     }
     return EntityToUserMapper.map(userEntityOptional.get());
   }
+
+  public Boolean findEmail(String email) {
+    Optional<UserEntity> userEntityOptional = userRepository.findByEmail(email);
+    if (userEntityOptional.isEmpty()) {
+      return false;
+    }
+    return true;
+  }
 }
