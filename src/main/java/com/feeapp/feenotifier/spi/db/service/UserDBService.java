@@ -15,4 +15,6 @@ public interface UserDBService {
   User getUserByEmailId(String email);
 
   User getUserByUserId(String userId);
+
+  Boolean findEmail(String email);
 }
