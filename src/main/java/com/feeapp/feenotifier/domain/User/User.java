@@ -14,5 +14,5 @@ public class User {
   private String password;
   private String userPermission;
   private String createdAt;
-  private Boolean isActive;
+  private String accountStatus;
 }

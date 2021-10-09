@@ -13,7 +13,7 @@ public class EntityToUserMapper {
     user.setPhoneNumber(userEntity.getPhoneNumber());
     user.setPassword(userEntity.getPassword());
     user.setUserPermission("BASIC");
-    user.setIsActive(userEntity.getIsActive());
+    user.setAccountStatus(userEntity.getAccountStatus());
     return user;
   }
 }

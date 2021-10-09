@@ -6,6 +6,7 @@ import com.feeapp.feenotifier.domain.User.login.LoginCredentials;
 import com.feeapp.feenotifier.domain.User.login.LoginResponse;
 import com.feeapp.feenotifier.domain.User.signup.SignupResponse;
 import com.feeapp.feenotifier.spi.db.service.UserDBService;
+import com.feeapp.feenotifier.spi.enums.AccountStatus;
 import com.feeapp.feenotifier.spi.enums.UserLoginResponse;
 import com.feeapp.feenotifier.spi.enums.UserSignUpResponse;
 import lombok.extern.log4j.Log4j2;
@@ -21,7 +22,7 @@ public class UserService {
   }
 
   public SignupResponse addNewUser(User user) {
-    user.setIsActive(true);
+    user.setAccountStatus(AccountStatus.PROCESSING.getStatus());
     SignupResponse signupResponse = new SignupResponse();
     if (userDBService.getUserByEmailId(user.getEmail()) != null) {
       signupResponse.setResponse(UserSignUpResponse.EMAIL_ALREADY_EXISTS);
@@ -35,6 +36,7 @@ public class UserService {
       signupResponse.setIsCreated(false);
       return signupResponse;
     }
+    userDBService.setAccountActive(AccountStatus.ACTIVE, user.getEmail());
     signupResponse.setIsCreated(true);
     signupResponse.setUserId(user.getUserId());
     signupResponse.setEmail(user.getEmail());

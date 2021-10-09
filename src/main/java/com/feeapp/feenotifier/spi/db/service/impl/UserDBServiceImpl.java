@@ -8,6 +8,7 @@ import com.feeapp.feenotifier.spi.db.mapper.EntityToUserMapper;
 import com.feeapp.feenotifier.spi.db.mapper.UserToEntityMapper;
 import com.feeapp.feenotifier.spi.db.repository.UserRepository;
 import com.feeapp.feenotifier.spi.db.service.UserDBService;
+import com.feeapp.feenotifier.spi.enums.AccountStatus;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.log4j.Log4j2;
@@ -66,5 +67,9 @@ public class UserDBServiceImpl implements UserDBService {
       return false;
     }
     return true;
+  }
+
+  public void setAccountActive(AccountStatus status, String email) {
+    userRepository.setAccountAsActive(status.getStatus(), email);
   }
 }

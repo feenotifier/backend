@@ -41,6 +41,6 @@ public class UserEntity {
   @CreationTimestamp
   private Instant createdAt;
 
-  @Column(name = "is_active")
-  private Boolean isActive;
+  @Column(name = "account_status")
+  private String accountStatus;
 }
